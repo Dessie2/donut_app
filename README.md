@@ -69,7 +69,7 @@ pubspec.yaml             # Flutter configuration and dependencies
 #
 🎨 DEMO: 
 #
-![flutter_application_1](assets/gif.gif)
+![donut_app](assets/donut(1).gif)
 #
 Developed by hello@dstudio.agency
 
