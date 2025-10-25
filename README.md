@@ -69,8 +69,8 @@ pubspec.yaml             # Flutter configuration and dependencies
 #
 🎨 DEMO: 
 #
-![flutter_application_1](assets/gif.gif)
-#
+![donut_app](assets/donutss.gif)
+
 Developed by hello@dstudio.agency
 
 Design concept inspired by Dribbble — implemented with Flutter for learning and UI showcase purposes. 
