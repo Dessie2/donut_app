@@ -1,9 +1,9 @@
-import 'package:donut_app/tab/donut_tab.dart';    // Importa la pantalla/tab de Donut
-import 'package:donut_app/tab/burger_tab.dart';   // Importa la pantalla/tab de Hamburguesa
-import 'package:donut_app/tab/pancake_tab.dart';  // Importa la pantalla/tab de Panqueques
-import 'package:donut_app/tab/pizza_tab.dart';    // Importa la pantalla/tab de Pizza
+import 'package:donut_app/tab/donut_tab.dart'; // Importa la pantalla/tab de Donut
+import 'package:donut_app/tab/burger_tab.dart'; // Importa la pantalla/tab de Hamburguesa
+import 'package:donut_app/tab/pancake_tab.dart'; // Importa la pantalla/tab de Panqueques
+import 'package:donut_app/tab/pizza_tab.dart'; // Importa la pantalla/tab de Pizza
 import 'package:donut_app/tab/smoothie_tab.dart'; // Importa la pantalla/tab de Smoothies
-import 'package:donut_app/utils/my_tab.dart';     // Importa widget personalizado para pestañas
+import 'package:donut_app/utils/my_tab.dart'; // Importa widget personalizado para pestañas
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -16,22 +16,35 @@ class Homepage extends StatefulWidget {
 class _MyWidgetState extends State<Homepage> {
   // Lista de pestañas personalizadas con icono y texto
   List<Widget> myTabs = [
-    const MyTab(iconPath: 'lib/icons/donut.png', label: 'Donut'),     // Tab Donut
-    const MyTab(iconPath: 'lib/icons/burger.png', label: 'Burguer'),  // Tab Hamburguesa
-    const MyTab(iconPath: 'lib/icons/smoothie.png', label: 'Smoothie'), // Tab Smoothie
-    const MyTab(iconPath: 'lib/icons/pancakes.png', label: 'Pancake'), // Tab Pancake
-    const MyTab(iconPath: 'lib/icons/pizza.png', label: 'Pizza'),      // Tab Pizza
+    const MyTab(iconPath: 'lib/icons/donut.png', label: 'Donut'), // Tab Donut
+    const MyTab(
+      iconPath: 'lib/icons/burger.png',
+      label: 'Burguer',
+    ), // Tab Hamburguesa
+    const MyTab(
+      iconPath: 'lib/icons/smoothie.png',
+      label: 'Smoothie',
+    ), // Tab Smoothie
+    const MyTab(
+      iconPath: 'lib/icons/pancakes.png',
+      label: 'Pancake',
+    ), // Tab Pancake
+    const MyTab(iconPath: 'lib/icons/pizza.png', label: 'Pizza'), // Tab Pizza
   ];
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(      // Controlador de pestañas
-      length: myTabs.length,          // Número de pestañas
+    return DefaultTabController(
+      // Controlador de pestañas
+      length: myTabs.length, // Número de pestañas
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,  // Fondo transparente en AppBar
+          backgroundColor: Colors.transparent, // Fondo transparente en AppBar
 
-          leading: Icon(Icons.menu, color: Colors.grey[800]), // Icono menú izquierda
+          leading: Icon(
+            Icons.menu,
+            color: Colors.grey[800],
+          ), // Icono menú izquierda
 
           actions: [
             Padding(
@@ -47,7 +60,10 @@ class _MyWidgetState extends State<Homepage> {
               padding: EdgeInsets.only(left: 24.0),
               child: Row(
                 children: [
-                  Text('I want to  ', style: TextStyle(fontSize: 24)), // Texto normal
+                  Text(
+                    'I want to  ',
+                    style: TextStyle(fontSize: 24),
+                  ), // Texto normal
                   Text(
                     'Eat', // Texto subrayado y negritas
                     style: TextStyle(
@@ -67,11 +83,11 @@ class _MyWidgetState extends State<Homepage> {
             Expanded(
               child: TabBarView(
                 children: [
-                  DonutTab(),    // Vista Donut
-                  BurgerTab(),   // Vista Burger
+                  DonutTab(), // Vista Donut
+                  BurgerTab(), // Vista Burger
                   SmoothieTab(), // Vista Smoothie
-                  PancakeTab(),  // Vista Panqueques
-                  PizzaTab(),    // Vista Pizza
+                  PancakeTab(), // Vista Panqueques
+                  PizzaTab(), // Vista Pizza
                 ],
               ),
             ),

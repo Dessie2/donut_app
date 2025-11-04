@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Oculta la cinta de debug en la esquina
+      debugShowCheckedModeBanner:
+          false, // Oculta la cinta de debug en la esquina
       title: 'Flutter Demo', // Título de la app
       theme: ThemeData(
         // Tema general de la aplicación
