@@ -37,20 +37,31 @@ class BurgerTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1 / 1.45,
-      ),
-      itemCount: burgersOnSale.length,
-      itemBuilder: (context, index) {
-        return BurgerTile(
-          burgerName: burgersOnSale[index][0],
-          burgerPrice: burgersOnSale[index][1],
-          burgerColor: burgersOnSale[index][2],
-          burgerImagePath: burgersOnSale[index][3],
-          burgerProvider: burgersOnSale[index][4],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Ajusta el childAspectRatio según el ancho del dispositivo
+        final double aspectRatio = constraints.maxWidth < 400
+            ? 1 / 1.1
+            : 1 / 0.9;
+
+        return GridView.builder(
+          padding: const EdgeInsets.all(8),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: aspectRatio,
+          ),
+          itemCount: burgersOnSale.length,
+          itemBuilder: (context, index) {
+            return BurgerTile(
+              burgerName: burgersOnSale[index][0],
+              burgerPrice: burgersOnSale[index][1],
+              burgerColor: burgersOnSale[index][2],
+              burgerImagePath: burgersOnSale[index][3],
+              burgerProvider: burgersOnSale[index][4],
+            );
+          },
         );
       },
     );

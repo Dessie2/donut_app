@@ -26,6 +26,7 @@ class BurgerTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(24.0),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Precio
             Row(
@@ -55,26 +56,47 @@ class BurgerTile extends StatelessWidget {
               ],
             ),
 
-            // Imagen
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12),
-              child: Image.asset(
-                burgerImagePath,
-                height: 100,
-                fit: BoxFit.contain,
+            // Imagen (ahora responsiva y centrada)
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 8,
+                ),
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1, // mantiene forma cuadrada
+                    child: Image.asset(
+                      burgerImagePath,
+                      fit: BoxFit.contain, // mantiene proporción natural
+                    ),
+                  ),
+                ),
               ),
             ),
 
             // Nombre
-            Text(
-              burgerName,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                burgerName,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
 
             // Proveedor
-            Text(burgerProvider, style: TextStyle(color: Colors.grey[600])),
+            Text(
+              burgerProvider,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey[600], fontSize: 13),
+            ),
 
-            // Parte inferior
+            // Parte inferior (corazón + botón Add)
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
