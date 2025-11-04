@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class DonutTile extends StatelessWidget {
-  final String donutFlavor;
-  final String donutPrice;
-  final dynamic donutColor; //variable no definida o cambiante, por eso dynamic
-  final String donutImagePath;
-  final String donutProvider;
+  // Propiedades que recibe este widget para mostrar información de la dona
+  final String donutFlavor;     // Sabor de la dona
+  final String donutPrice;      // Precio de la dona
+  final dynamic donutColor;     // Color relacionado a la dona (dynamic para usar paleta de colores)
+  final String donutImagePath;  // Ruta de la imagen de la dona
+  final String donutProvider;   // Tienda que vende la dona
 
   const DonutTile({
     super.key,
@@ -19,76 +20,91 @@ class DonutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(12.0), // Espacio exterior
       child: Container(
-        decoration: BoxDecoration(color: donutColor[50], //color de fondo
-        borderRadius: BorderRadius.circular(24.0) //redondeo de las esquinas de fondo
+        decoration: BoxDecoration(
+          color: donutColor[50], // Color de fondo (tonalidad clara)
+          borderRadius: BorderRadius.circular(24.0), // Borde redondeado
         ), 
         child: Column(
-          children: [ //se define la columna
-            Row( //se pone la fila
-              mainAxisAlignment: MainAxisAlignment.end, //alinea a la derecha o final
-      
+          children: [
+            // Fila para colocar el precio arriba a la derecha
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end, // Alinea al extremo derecho
               children: [
-                Container( //para el pcontenedor del precio de fondo
+                // Contenedor del precio
+                Container(
                   decoration: BoxDecoration(
-                    color: donutColor[100], //color del contenedor
-                    borderRadius: BorderRadius.only( //aplicar solo al elemento
-                      bottomLeft: Radius.circular(24), //aplica solo a la esquina inferior izquierda
-                      topRight: Radius.circular(24), //aplica solo a la esquina superior derecha
+                    color: donutColor[100], // Color del fondo del precio
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(24), // Solo esquina inferior izquierda
+                      topRight: Radius.circular(24),   // Solo esquina superior derecha
                     ),
                   ),
-      
-                  padding: const EdgeInsets.symmetric( //espacio dentro del container
+
+                  padding: const EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 18,
-                  ), //espacio interno
-      
-                  child: Text( //para poner el precio texto/cantidad
-                    '\$$donutPrice',
+                  ), // Espacio interno del recuadro
+
+                  child: Text(
+                    '\$$donutPrice', // Precio mostrado
                     style: TextStyle(
-                      fontWeight: FontWeight.bold, //negritas
-                      fontSize: 18, //tamaño de la letra
-                      color: donutColor[800], //color del texto
+                      fontWeight: FontWeight.bold, 
+                      fontSize: 18,
+                      color: donutColor[800], // Texto con tono más oscuro
                     ),
                   ),
                 ),
               ],
             ),
-                //imagen de la dona
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12), //symetric es para ambos lados
-                  child: Image.asset(donutImagePath),
-                ),
-      
-                //nombre de la dona
-                Text(donutFlavor, style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),),
-      
-                //tienda de la dona
-                Text( donutProvider, style: TextStyle(
-                color: Colors.grey[600],
-                ),),
-      
-                //botones
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween, //espacio entre los elementos
-                    children: [
-                      //favorito
-                      Icon(Icons.favorite, color:Colors.pink[400]),
-                      //agregar
-                      TextButton(onPressed: (){}, child: Text('Add',
+
+            // Imagen de la dona
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12),
+              child: Image.asset(donutImagePath), // Muestra la imagen
+            ),
+
+            // Nombre del sabor
+            Text(
+              donutFlavor, 
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            // Tienda donde se vende
+            Text(
+              donutProvider, 
+              style: TextStyle(
+                color: Colors.grey[600], // Texto gris tenue
+              ),
+            ),
+
+            // Botones de acción: favorito y agregar
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Elementos separados
+                children: [
+                  // Botón de favorito (solo icono)
+                  Icon(Icons.favorite, color:Colors.pink[400]),
+
+                  // Botón para agregar al carrito
+                  TextButton(
+                    onPressed: (){}, 
+                    child: Text(
+                      'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline
-                      ),))
-                    ],
-                  ),
-                )
+                        decoration: TextDecoration.underline, // Subrayado
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

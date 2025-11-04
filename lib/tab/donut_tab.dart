@@ -1,11 +1,12 @@
-import 'package:donut_app/utils/donut_tile.dart';
+import 'package:donut_app/utils/donut_tile.dart'; // Importa el widget DonutTile para mostrar cada dona
 import 'package:flutter/material.dart';
 
 class DonutTab extends StatelessWidget {
    DonutTab({super.key});
-  //lista de donas para el parametro
+
+  // Lista de donas para pasar como parámetros al widget DonutTile
   final List donutOnSale = [
-    //doutFlavor, donutPrice, donutColor, donutImagePath, donutProvider
+    // donutFlavor, donutPrice, donutColor, donutImagePath, donutProvider
     ['Chocolate', '100', Colors.brown, 'lib/images/chocolate_donut.png', 'Starbucks'],
     ['Strawberry', '100', Colors.pink, 'lib/images/strawberry_donut.png', 'Starbucks'],
     ['IceCream', '100', Colors.yellow, 'lib/images/icecream_donut.png', 'Starbucks'],
@@ -15,21 +16,23 @@ class DonutTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      ///Se encarga de acomodar elementos dentro del grid
+      /// Se encarga de construir una cuadrícula para mostrar los elementos
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      childAspectRatio: 1 / 1.45, //relacion de aspecto ancho/alto 
-      ), //crossAxisCount numeros de columnas
+        crossAxisCount: 2, // Cantidad de columnas en la cuadrícula
+        childAspectRatio: 1 / 1.45, // Relación ancho/alto de cada elemento
+      ), 
 
-      //lo que se construye en el grid (contenido)
-      itemCount: donutOnSale.length, //cuantos elementos tendra
+      // Cantidad de elementos que tendrá el grid
+      itemCount: donutOnSale.length, 
+
+      // builder = crea cada elemento dinámicamente
       itemBuilder: (context, index){
-        return DonutTile( //le pasamos los elementos de la lista a la clase DonutTile
-          donutFlavor: donutOnSale[index][0],
-          donutPrice: donutOnSale[index][1],
-          donutColor: donutOnSale[index][2],
-          donutImagePath: donutOnSale[index][3],
-          donutProvider: donutOnSale[index][4],
+        return DonutTile( // Enviamos los datos de la lista a la clase DonutTile
+          donutFlavor: donutOnSale[index][0],   // Sabor
+          donutPrice: donutOnSale[index][1],   // Precio
+          donutColor: donutOnSale[index][2],   // Color
+          donutImagePath: donutOnSale[index][3], // Imagen
+          donutProvider: donutOnSale[index][4], // Tienda/proveedor
         );
       },
     );
