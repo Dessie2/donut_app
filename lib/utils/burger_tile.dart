@@ -6,6 +6,7 @@ class BurgerTile extends StatelessWidget {
   final Color burgerColor;
   final String burgerImagePath;
   final String burgerProvider;
+  final VoidCallback? onAddToCart;
 
   const BurgerTile({
     super.key,
@@ -14,6 +15,7 @@ class BurgerTile extends StatelessWidget {
     required this.burgerColor,
     required this.burgerImagePath,
     required this.burgerProvider,
+    this.onAddToCart,
   });
 
   @override
@@ -28,7 +30,7 @@ class BurgerTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Precio
+            // Precio en esquina superior derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -56,7 +58,7 @@ class BurgerTile extends StatelessWidget {
               ],
             ),
 
-            // Imagen (ahora responsiva y centrada)
+            // Imagen centrada y responsiva
             Expanded(
               flex: 4,
               child: Padding(
@@ -66,11 +68,8 @@ class BurgerTile extends StatelessWidget {
                 ),
                 child: Center(
                   child: AspectRatio(
-                    aspectRatio: 1, // mantiene forma cuadrada
-                    child: Image.asset(
-                      burgerImagePath,
-                      fit: BoxFit.contain, // mantiene proporción natural
-                    ),
+                    aspectRatio: 1,
+                    child: Image.asset(burgerImagePath, fit: BoxFit.contain),
                   ),
                 ),
               ),
@@ -104,7 +103,10 @@ class BurgerTile extends StatelessWidget {
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: onAddToCart,
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.pink[600],
+                    ),
                     child: const Text(
                       'Add',
                       style: TextStyle(

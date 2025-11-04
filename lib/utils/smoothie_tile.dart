@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class PizzaTile extends StatelessWidget {
-  final String pizzaFlavor;
-  final String pizzaPrice;
-  final dynamic pizzaColor;
-  final String pizzaImagePath;
-  final String pizzaProvider;
-  final VoidCallback? onAddToCart; // 👈 nuevo parámetro para conectar con el tab
+class SmoothieTile extends StatelessWidget {
+  final String smoothieFlavor;
+  final String smoothiePrice;
+  final dynamic smoothieColor;
+  final String smoothieImagePath;
+  final String smoothieProvider;
+  final VoidCallback? onAddToCart;
 
-  const PizzaTile({
+  const SmoothieTile({
     super.key,
-    required this.pizzaFlavor,
-    required this.pizzaPrice,
-    this.pizzaColor,
-    required this.pizzaImagePath,
-    required this.pizzaProvider,
-    this.onAddToCart, // 👈 permite usar la función desde PizzaTab
+    required this.smoothieFlavor,
+    required this.smoothiePrice,
+    this.smoothieColor,
+    required this.smoothieImagePath,
+    required this.smoothieProvider,
+    this.onAddToCart,
   });
 
   @override
@@ -24,18 +24,22 @@ class PizzaTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: pizzaColor[50],
+          color: (smoothieColor is MaterialColor)
+              ? smoothieColor[50]
+              : smoothieColor,
           borderRadius: BorderRadius.circular(24.0),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Precio
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: pizzaColor[100],
+                    color: (smoothieColor is MaterialColor)
+                        ? smoothieColor[100]
+                        : smoothieColor.withOpacity(0.3),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -46,41 +50,39 @@ class PizzaTile extends StatelessWidget {
                     horizontal: 18,
                   ),
                   child: Text(
-                    '\$$pizzaPrice',
+                    '\$$smoothiePrice',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: pizzaColor[800],
+                      color: (smoothieColor is MaterialColor)
+                          ? smoothieColor[800]
+                          : Colors.black,
                     ),
                   ),
                 ),
               ],
             ),
 
-            // Imagen
+            // imagen ajustada
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12),
-              child: Image.asset(pizzaImagePath),
-            ),
-
-            // Nombre
-            Text(
-              pizzaFlavor,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+              child: Image.asset(
+                smoothieImagePath,
+                height: 100, // evita overflow
+                fit: BoxFit.contain,
               ),
             ),
 
-            // Proveedor
+            // nombre
             Text(
-              pizzaProvider,
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
+              smoothieFlavor,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
 
-            // Botones
+            // proveedor
+            Text(smoothieProvider, style: TextStyle(color: Colors.grey[600])),
+
+            // botones
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
@@ -88,15 +90,7 @@ class PizzaTile extends StatelessWidget {
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
                   TextButton(
-                    onPressed: onAddToCart ??
-                        () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('$pizzaFlavor added to cart'),
-                              duration: const Duration(seconds: 1),
-                            ),
-                          );
-                        },
+                    onPressed: onAddToCart,
                     child: const Text(
                       'Add',
                       style: TextStyle(

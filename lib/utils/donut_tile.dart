@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class DonutTile extends StatelessWidget {
-  // Propiedades que recibe este widget para mostrar información de la dona
-  final String donutFlavor;     // Sabor de la dona
-  final String donutPrice;      // Precio de la dona
-  final dynamic donutColor;     // Color relacionado a la dona (dynamic para usar paleta de colores)
-  final String donutImagePath;  // Ruta de la imagen de la dona
-  final String donutProvider;   // Tienda que vende la dona
+  final String donutFlavor;
+  final String donutPrice;
+  final dynamic donutColor;
+  final String donutImagePath;
+  final String donutProvider;
+  final VoidCallback? onAddToCart;
 
   const DonutTile({
     super.key,
@@ -15,96 +15,92 @@ class DonutTile extends StatelessWidget {
     this.donutColor,
     required this.donutImagePath,
     required this.donutProvider,
+    this.onAddToCart,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0), // Espacio exterior
+      padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: donutColor[50], // Color de fondo (tonalidad clara)
-          borderRadius: BorderRadius.circular(24.0), // Borde redondeado
-        ), 
+          color: donutColor[50],
+          borderRadius: BorderRadius.circular(24.0),
+        ),
         child: Column(
           children: [
-            // Fila para colocar el precio arriba a la derecha
+            // Precio en esquina superior derecha
             Row(
-              mainAxisAlignment: MainAxisAlignment.end, // Alinea al extremo derecho
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // Contenedor del precio
                 Container(
                   decoration: BoxDecoration(
-                    color: donutColor[100], // Color del fondo del precio
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(24), // Solo esquina inferior izquierda
-                      topRight: Radius.circular(24),   // Solo esquina superior derecha
+                    color: donutColor[100],
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
                     ),
                   ),
-
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 18,
-                  ), // Espacio interno del recuadro
-
+                  ),
                   child: Text(
-                    '\$$donutPrice', // Precio mostrado
+                    '\$$donutPrice',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold, 
+                      fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: donutColor[800], // Texto con tono más oscuro
+                      color: donutColor[800],
                     ),
                   ),
                 ),
               ],
             ),
 
-            // Imagen de la dona
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12),
-              child: Image.asset(donutImagePath), // Muestra la imagen
-            ),
-
-            // Nombre del sabor
-            Text(
-              donutFlavor, 
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            // ✅ Imagen con tamaño controlado para evitar overflow
+            SizedBox(
+              height: 120, // Ajusta a tu gusto
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 36,
+                  vertical: 12,
+                ),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.asset(donutImagePath, fit: BoxFit.contain),
+                ),
               ),
             ),
 
-            // Tienda donde se vende
+            // Nombre
             Text(
-              donutProvider, 
-              style: TextStyle(
-                color: Colors.grey[600], // Texto gris tenue
-              ),
+              donutFlavor,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
 
-            // Botones de acción: favorito y agregar
+            // Tienda / proveedor
+            Text(donutProvider, style: TextStyle(color: Colors.grey[600])),
+
+            // Icono favorito + botón Add
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Elementos separados
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Botón de favorito (solo icono)
-                  Icon(Icons.favorite, color:Colors.pink[400]),
-
-                  // Botón para agregar al carrito
+                  Icon(Icons.favorite, color: Colors.pink[400]),
                   TextButton(
-                    onPressed: (){}, 
-                    child: Text(
+                    onPressed: onAddToCart,
+                    child: const Text(
                       'Add',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline, // Subrayado
+                        decoration: TextDecoration.underline,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

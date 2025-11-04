@@ -6,6 +6,7 @@ class PancakeTile extends StatelessWidget {
   final dynamic pancakeColor;
   final String pancakeImagePath;
   final String pancakeProvider;
+  final VoidCallback? onAddToCart;
 
   const PancakeTile({
     super.key,
@@ -14,6 +15,7 @@ class PancakeTile extends StatelessWidget {
     this.pancakeColor,
     required this.pancakeImagePath,
     required this.pancakeProvider,
+    this.onAddToCart,
   });
 
   @override
@@ -22,10 +24,13 @@ class PancakeTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: pancakeColor[50],
+          color: (pancakeColor is MaterialColor)
+              ? pancakeColor[50]
+              : pancakeColor,
           borderRadius: BorderRadius.circular(24.0),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Precio
             Row(
@@ -33,7 +38,9 @@ class PancakeTile extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: pancakeColor[100],
+                    color: (pancakeColor is MaterialColor)
+                        ? pancakeColor[100]
+                        : pancakeColor.withOpacity(0.3),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -48,7 +55,9 @@ class PancakeTile extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: pancakeColor[800],
+                      color: (pancakeColor is MaterialColor)
+                          ? pancakeColor[800]
+                          : Colors.black,
                     ),
                   ),
                 ),
@@ -58,7 +67,11 @@ class PancakeTile extends StatelessWidget {
             // Imagen del pancake
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12),
-              child: Image.asset(pancakeImagePath),
+              child: Image.asset(
+                pancakeImagePath,
+                height: 100, // evita overflow
+                fit: BoxFit.contain,
+              ),
             ),
 
             // Nombre del pancake
@@ -78,7 +91,7 @@ class PancakeTile extends StatelessWidget {
                 children: [
                   Icon(Icons.favorite, color: Colors.pink[400]),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: onAddToCart,
                     child: const Text(
                       'Add',
                       style: TextStyle(

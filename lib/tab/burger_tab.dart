@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:donut_app/utils/burger_tile.dart';
+import 'package:donut_app/models/cart.dart';
+import 'package:donut_app/models/product.dart';
 
 class BurgerTab extends StatelessWidget {
   BurgerTab({super.key});
 
+  // Lista de hamburguesas disponibles
   final List<List<dynamic>> burgersOnSale = [
     [
       'Cheese Burger',
-      '120',
+      120.0,
       Colors.brown,
       'lib/images/cheese_burger.png',
       'McDonalds',
     ],
     [
       'Chicken Burger',
-      '110',
+      110.0,
       Colors.orange,
       'lib/images/simple_burger.png',
       'KFC',
     ],
     [
       'Double Beef',
-      '150',
+      150.0,
       Colors.red,
       'lib/images/tocino_burger.png',
       'Burger King',
     ],
     [
       'Veggie Burger',
-      '95',
+      95.0,
       Colors.green,
       'lib/images/withfries_burger.png',
       'Subway',
@@ -39,10 +42,9 @@ class BurgerTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Ajusta el childAspectRatio según el ancho del dispositivo
-        final double aspectRatio = constraints.maxWidth < 400
-            ? 1 / 1.1
-            : 1 / 0.9;
+        // Mantiene el mismo estilo y proporciones
+        final double aspectRatio =
+            constraints.maxWidth < 400 ? 1 / 1.1 : 1 / 0.9;
 
         return GridView.builder(
           padding: const EdgeInsets.all(8),
@@ -54,12 +56,31 @@ class BurgerTab extends StatelessWidget {
           ),
           itemCount: burgersOnSale.length,
           itemBuilder: (context, index) {
+            final burger = burgersOnSale[index];
+
             return BurgerTile(
-              burgerName: burgersOnSale[index][0],
-              burgerPrice: burgersOnSale[index][1],
-              burgerColor: burgersOnSale[index][2],
-              burgerImagePath: burgersOnSale[index][3],
-              burgerProvider: burgersOnSale[index][4],
+              burgerName: burger[0],
+              burgerPrice: burger[1].toString(),
+              burgerColor: burger[2],
+              burgerImagePath: burger[3],
+              burgerProvider: burger[4],
+              // para manejar el botón de agregar
+              onAddToCart: () {
+                final product = Product(
+                  name: burger[0],
+                  price: burger[1],
+                  imagePath: burger[3],
+                );
+
+                Cart.addItem(product);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${burger[0]} added to cart'),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              },
             );
           },
         );
